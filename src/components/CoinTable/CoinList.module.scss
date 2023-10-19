@@ -1,0 +1,37 @@
+.table__container {
+    width: 100%; /* Установите желаемую ширину контейнера таблицы */
+    overflow-x: auto; /* Включить горизонтальную прокрутку */
+}
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+.thead{
+    position: sticky;
+    top: -1px;
+    background-color: #fff;
+    width: 100%;
+}
+.tr{
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+.tr__link{
+    &:hover{
+        cursor: pointer;
+    }
+}
+th, td{
+    min-width: 78px;
+    padding: 10px 0;
+}
+.coin__img__wrapper{
+    display: flex;
+    align-items: center;
+}
+.sticky_column {
+    position: sticky;
+    left: 0; /* Фиксировать столбцы слева */
+    background-color: #fff;
+    z-index: 1; /* Отобразить поверх других столбцов */
+  }
