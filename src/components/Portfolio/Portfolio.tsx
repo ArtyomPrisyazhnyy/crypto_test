@@ -8,6 +8,7 @@ import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 
 import styles from './Portfolio.module.scss'
+import { getPortfolioFromLS } from '../../utils/localStorage';
 
 interface PortfolioCoin {
     id: string;
@@ -21,28 +22,19 @@ const Portfolio = () => {
 
     const ids: string[] = [];
     const  [portfolioTotalPrice, setPortfolioTotalPrice]= useState<number>(0);
-    const [totalPortfolioPriceAtTimeOfPurchase, setTotalPortfolioPriceAtTimeOfPurchase ] = useState<number>(0);
     const [percent, setPercent] = useState<string>('')
     const [formattedDifference, setFormattedDifference] = useState<string>('');
 
-    const portfolioKey = "userPortfolio";
-    const storedPortfolioJSON = localStorage.getItem(portfolioKey);
-    let loadedPortfolio: PortfolioCoin[] = [];
+    let loadedPortfolio = getPortfolioFromLS();
 
-
-    if (storedPortfolioJSON) {
-        loadedPortfolio = JSON.parse(storedPortfolioJSON);
-
+    if (loadedPortfolio) {
         loadedPortfolio.map((loadedCoinFromLS: any) => {
             ids.push(loadedCoinFromLS.id)
         })
       
         console.log("Загруженный портфель:", loadedPortfolio);
-    } else {
-        console.log("Портфель не найден в localStorage.");
     }
 
-    console.log(ids)
 
     const {data: portfolioCoins, isLoading, isError} = useQuery({
         queryKey: ['coinData', ids],
@@ -54,9 +46,7 @@ const Portfolio = () => {
     
 
     useEffect(() => {
-        if (storedPortfolioJSON && portfolioCoins) {
-            const loadedPortfolio = JSON.parse(storedPortfolioJSON);
-    
+        if (loadedPortfolio && portfolioCoins) {    
             let totalPrice = 0;
 
             portfolioCoins.forEach((portfolioCoin: Coin) => {
@@ -87,7 +77,7 @@ const Portfolio = () => {
             // Форматирование разницы
             setFormattedDifference(`${sign}${formatNumber(absoluteDifference)}`);
         }
-    }, [storedPortfolioJSON, portfolioCoins, formattedDifference, portfolioTotalPrice])
+    }, [loadedPortfolio, portfolioCoins, formattedDifference, portfolioTotalPrice])
 
     
     return (

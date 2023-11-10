@@ -1,5 +1,5 @@
 import React, {  useState } from 'react'
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from 'react-query';
 import { getCoinById } from '../../api/api';
 
@@ -12,6 +12,7 @@ import Error from '../../components/Error/Error';
 import CoinSVG from '../../assets/img/coin.svg'
 import { HOME_ROUTE } from '../../utils/consts';
 import Header from '../../components/Header/Header';
+import { getPortfolioFromLS, savePortfolioToLS } from '../../utils/localStorage';
 
 interface PortfolioCoin {
     id: string;
@@ -20,7 +21,6 @@ interface PortfolioCoin {
 };
 
 const CoinPage = () => {
-    const navigate = useNavigate();
     const { id } = useParams();
 
     const queryClient = useQueryClient();
@@ -40,27 +40,20 @@ const CoinPage = () => {
         refetchOnWindowFocus: false
     });
 
-    const userPortfolio = 'userPortfolio';
+    let loadedPortfolio = getPortfolioFromLS();
+
     const addCoin = () => {
-        const storedPortfolioJSON = localStorage.getItem(userPortfolio);
-        let loadedPortfolio = [];
-      
-        if (storedPortfolioJSON) {
-          loadedPortfolio = JSON.parse(storedPortfolioJSON);
-        }
       
         // Проверка наличия монеты с заданным id в портфеле
-        const existingCoin = loadedPortfolio.find((coin: PortfolioCoin) => coin.id === id);
+        const existingCoin = loadedPortfolio?.find((coin: PortfolioCoin) => coin.id === id);
       
         if (existingCoin) {
-            // Если монета уже существует, обновите количество и цену
             existingCoin.coinquantity += parseFloat(addCoinValue);
             for (var i=0; i < parseFloat(addCoinValue); i++) {
                 existingCoin.priceAtTimeOfPurchase.push(parseFloat(coinData.priceUsd));
             }
         } else {
-          // Создайте новую монету и её количества
-          const newCoin = { id: id, coinquantity: parseFloat(addCoinValue), priceAtTimeOfPurchase: [] as any[] };
+          const newCoin = { id: id, coinquantity: parseFloat(addCoinValue), priceAtTimeOfPurchase: [] as number[] };
 
             // Добавляем новые цены в массив priceAtTimeOfPurchase
             for (let i = 0; i < parseFloat(addCoinValue); i++) {
@@ -71,14 +64,11 @@ const CoinPage = () => {
           loadedPortfolio.push(newCoin);
         }
       
-        // Сохранение обновлённого портфеля в localStorage
-        localStorage.setItem(userPortfolio, JSON.stringify(loadedPortfolio));
+        savePortfolioToLS(loadedPortfolio);
       
         queryClient.invalidateQueries('coinData');
       };
       
-
-
     let imageUrl = CoinSVG;
     if (!!coinData && !!coinData.symbol) {
         imageUrl = `https://assets.coincap.io/assets/icons/${coinData.symbol.toLowerCase()}@2x.png`

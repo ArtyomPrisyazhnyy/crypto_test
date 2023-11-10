@@ -18,8 +18,8 @@ const ButtonListForSelect = <T,>({
     return (
         <ul className={styles.btn__list}>
             <li className={styles.btn__list__desc}>{ButtonListDescription}</li>
-            {items.map((item) => (
-                <li
+            {items.map((item, index) => (
+                <li key={index}
                     className={`${styles.btn__list__select} ${selectedValue === item.value ? styles.btn__list__selected : ''}`}
                     onClick={() => onSelect(item.value)}
                 >

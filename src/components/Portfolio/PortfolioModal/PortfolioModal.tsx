@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import styles from './PortFolioModal.module.scss';
 import { Coin } from '../../../types/Coin';
 import CoinSVG from '../../../assets/img/coin.svg'
 import { formatNumber } from '../../../utils/formatNumber';
 import { useQueryClient } from 'react-query';
+import { getPortfolioFromLS, removePortfoilioCoinfromLS } from '../../../utils/localStorage';
+import { LSPortfolioData } from '../../../types/LocalStorageData';
 
 interface PortfolioModalProps {
     show: boolean;
@@ -13,30 +15,16 @@ interface PortfolioModalProps {
     totalPrice: string
 }
 
-interface PortfolioCoin {
-    id: string;
-    coinquantity: number;
-    priceAtTimeOfPurchase: number
-}
 
 const PortfolioModal: React.FC<PortfolioModalProps> = ({show, onHide, portfolioCoins, totalPrice}) => {
     const queryClient = useQueryClient();
 
-    const userPortfolio = 'userPortfolio';
-    const storedPortfolioJSON = localStorage.getItem(userPortfolio);
-    let loadedPortfolio: PortfolioCoin[] = [];
+    let loadedPortfolio = getPortfolioFromLS()
 
-    if (storedPortfolioJSON) {
-        loadedPortfolio = JSON.parse(storedPortfolioJSON);
-    }
-
-    const removeCoin = (coinId: string) => {
-        const updatedPortfolio = loadedPortfolio.filter((coin) => coin.id !== coinId);
-        loadedPortfolio = updatedPortfolio;
-        // Сохраните обновленный портфель в localStorage
-        localStorage.setItem(userPortfolio, JSON.stringify(updatedPortfolio));
+    const removeCoin = useCallback((coinId: string) => {
+        removePortfoilioCoinfromLS(coinId);
         queryClient.invalidateQueries('coinData');
-      }
+    }, [queryClient]);
 
     return (
         <>
@@ -54,7 +42,7 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({show, onHide, portfolioC
                         <div className={styles.modal__title}>
                             Total price: {totalPrice}
                         </div>
-                        {storedPortfolioJSON 
+                        {(loadedPortfolio.length && portfolioCoins) 
                         ? 
                             <>
                             {portfolioCoins.map((portfolioCoin: any) => (
@@ -68,9 +56,9 @@ const PortfolioModal: React.FC<PortfolioModalProps> = ({show, onHide, portfolioC
                                             onError={(e) => (e.currentTarget.src = CoinSVG)} 
                                         />
                                         <div className={styles.portfolio__desc}>{portfolioCoin.name}</div>
-                                        <div className={styles.portfolio__desc}>Price: ${formatNumber(portfolioCoin.priceUsd)}</div>
+                                       
                                         <div className={styles.portfolio__desc}>
-                                            number of coins: {loadedPortfolio.find((item: PortfolioCoin) => 
+                                            number of coins: {loadedPortfolio.find((item: LSPortfolioData) => 
                                             item.id === portfolioCoin.id)?.coinquantity || 0}
                                         </div>
                                     </div>
