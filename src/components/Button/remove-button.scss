@@ -1,0 +1,18 @@
+.remove-button {
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: 0.1s ease;
+    padding: 3px 6px;
+    max-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: #b00216;
+        border-color: #b00216;
+        color: #fff;
+        cursor: pointer;
+    }
+}

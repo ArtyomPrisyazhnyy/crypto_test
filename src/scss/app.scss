@@ -1,1 +1,7 @@
 @import './libs/normalize';
+@import '../components/Button/Button.module.scss';
+@import '../components/Button/add-button.scss';
+@import '../components//Button/remove-button.scss';
+@import '../components/Button/close-button.scss';
+@import '../components/CoinTable/CoinList.module.scss';
+@import '../components/CoinChart/CoinChart.scss';

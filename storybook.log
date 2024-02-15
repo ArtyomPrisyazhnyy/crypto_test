@@ -1,0 +1,75 @@
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/darwin-arm64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\darwin-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/darwin-arm64@0.18.20: wanted {"os":"darwin","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/android-arm64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\android-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/android-arm64@0.18.20: wanted {"os":"android","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/darwin-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\darwin-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/darwin-x64@0.18.20: wanted {"os":"darwin","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/freebsd-arm64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\freebsd-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/freebsd-arm64@0.18.20: wanted {"os":"freebsd","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/android-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\android-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/android-x64@0.18.20: wanted {"os":"android","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/android-arm@0.18.20 (node_modules\esbuild\node_modules\@esbuild\android-arm):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/android-arm@0.18.20: wanted {"os":"android","arch":"arm"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/freebsd-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\freebsd-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/freebsd-x64@0.18.20: wanted {"os":"freebsd","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-ia32@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-ia32):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-ia32@0.18.20: wanted {"os":"linux","arch":"ia32"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-arm64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-arm64@0.18.20: wanted {"os":"linux","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-arm@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-arm):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-arm@0.18.20: wanted {"os":"linux","arch":"arm"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-loong64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-loong64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-loong64@0.18.20: wanted {"os":"linux","arch":"loong64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-ppc64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-ppc64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-ppc64@0.18.20: wanted {"os":"linux","arch":"ppc64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-mips64el@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-mips64el):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-mips64el@0.18.20: wanted {"os":"linux","arch":"mips64el"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-riscv64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-riscv64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-riscv64@0.18.20: wanted {"os":"linux","arch":"riscv64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-x64@0.18.20: wanted {"os":"linux","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/linux-s390x@0.18.20 (node_modules\esbuild\node_modules\@esbuild\linux-s390x):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/linux-s390x@0.18.20: wanted {"os":"linux","arch":"s390x"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/netbsd-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\netbsd-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/netbsd-x64@0.18.20: wanted {"os":"netbsd","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/openbsd-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\openbsd-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/openbsd-x64@0.18.20: wanted {"os":"openbsd","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/sunos-x64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\sunos-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/sunos-x64@0.18.20: wanted {"os":"sunos","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/win32-arm64@0.18.20 (node_modules\esbuild\node_modules\@esbuild\win32-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/win32-arm64@0.18.20: wanted {"os":"win32","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @esbuild/win32-ia32@0.18.20 (node_modules\esbuild\node_modules\@esbuild\win32-ia32):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @esbuild/win32-ia32@0.18.20: wanted {"os":"win32","arch":"ia32"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-linux-arm-gnueabihf@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-linux-arm-gnueabihf):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-linux-arm-gnueabihf@1.4.0: wanted {"os":"linux","arch":"arm"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-win32-ia32-msvc@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-win32-ia32-msvc):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-win32-ia32-msvc@1.4.0: wanted {"os":"win32","arch":"ia32"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-linux-x64-musl@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-linux-x64-musl):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-linux-x64-musl@1.4.0: wanted {"os":"linux","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-darwin-x64@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-darwin-x64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-darwin-x64@1.4.0: wanted {"os":"darwin","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-darwin-arm64@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-darwin-arm64):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-darwin-arm64@1.4.0: wanted {"os":"darwin","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-linux-arm64-gnu@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-linux-arm64-gnu):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-linux-arm64-gnu@1.4.0: wanted {"os":"linux","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-linux-x64-gnu@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-linux-x64-gnu):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-linux-x64-gnu@1.4.0: wanted {"os":"linux","arch":"x64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-linux-arm64-musl@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-linux-arm64-musl):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-linux-arm64-musl@1.4.0: wanted {"os":"linux","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @swc/core-win32-arm64-msvc@1.4.0 (node_modules\@swc\core\node_modules\@swc\core-win32-arm64-msvc):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for @swc/core-win32-arm64-msvc@1.4.0: wanted {"os":"win32","arch":"arm64"} (current: {"os":"win32","arch":"x64"})
+npm WARN @apideck/better-ajv-errors@0.3.6 requires a peer of ajv@>=8 but none is installed. You must install peer dependencies yourself.
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: @colors/colors@1.5.0 (node_modules\@colors\colors):
+npm WARN enoent SKIPPING OPTIONAL DEPENDENCY: ENOENT: no such file or directory, rename 'D:\Web\etacar\node_modules\@colors\colors' -> 'D:\Web\etacar\node_modules\@colors\.colors.DELETE'
+
+npm ERR! code ENOENT
+npm ERR! syscall rename
+npm ERR! path D:\Web\etacar\node_modules\@discoveryjs\json-ext
+npm ERR! dest D:\Web\etacar\node_modules\@discoveryjs\.json-ext.DELETE
+npm ERR! errno -4058
+npm ERR! enoent ENOENT: no such file or directory, rename 'D:\Web\etacar\node_modules\@discoveryjs\json-ext' -> 'D:\Web\etacar\node_modules\@discoveryjs\.json-ext.DELETE'
+npm ERR! enoent This is related to npm not being able to find a file.
+npm ERR! enoent 
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\Lenovo\AppData\Roaming\npm-cache\_logs\2024-02-12T05_44_47_395Z-debug.log

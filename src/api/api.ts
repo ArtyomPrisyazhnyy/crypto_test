@@ -1,71 +1,76 @@
 import axios from 'axios';
 
 export const $host = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL
-})
+    baseURL: process.env.REACT_APP_BASE_URL,
+});
 
-export const getAllCoinData = async (limit: number, offset: number, search?: string)  => {
+export const getAllCoinData = async (limit: number, offset: number, search?: string) => {
     try {
-        const {data} = await $host.get(``, {
+        const { data } = await $host.get(``, {
             params: {
                 limit,
                 offset,
-                search
-            }
+                search,
+            },
         });
         return data.data;
     } catch (err) {
         console.error(err);
         throw err;
     }
-}
+};
 
 export const getCoinForHeader = async () => {
     try {
-        const  {data} = await $host.get(`?limit=3`);
-        return data.data
+        const { data } = await $host.get(`?limit=3`);
+        return data.data;
     } catch (err) {
         console.error(err);
         throw err;
     }
-}
+};
 
 export const getCoinById = async (id: string | undefined) => {
     try {
-        const {data} = await $host.get(`/${id}`);
-        return data.data
+        const { data } = await $host.get(`/${id}`);
+        return data.data;
     } catch (err) {
         console.error(err);
         throw err;
     }
-}
+};
 
-export const getCoinHistory = async (id: string | undefined, interval: string, start: number, end: number) => {
+export const getCoinHistory = async (
+    id: string | undefined,
+    interval: string,
+    start: number,
+    end: number,
+) => {
     try {
-        const {data} = await $host.get(`/${id}/history`, {
+        const { data } = await $host.get(`/${id}/history`, {
             params: {
                 interval,
                 start,
-                end
-            }
+                end,
+            },
         });
-        return data.data
+        return data.data;
     } catch (err) {
         console.error(err);
         throw err;
     }
-}
+};
 
 export const getDataAndUpdateState = async (ids: string) => {
-    try{
-        const {data} = await $host.get(``, {
+    try {
+        const { data } = await $host.get(``, {
             params: {
-                ids
-            }
-        })
-        return data.data
+                ids,
+            },
+        });
+        return data.data;
     } catch (e) {
-        console.error(e)
-        throw e
+        console.error(e);
+        throw e;
     }
-}
+};

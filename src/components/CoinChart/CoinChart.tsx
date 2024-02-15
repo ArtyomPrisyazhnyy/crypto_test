@@ -1,64 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { CoinChartPoint } from '../../types/Coin';
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {
+    CartesianGrid,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts';
 import { getCoinHistory } from '../../api/api';
 import { formatNumber } from '../../utils/formatNumber';
-
-import styles from './CoinChart.module.scss'
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 import ButtonListForSelect from '../ButtonListForSelect/ButtonListForSelect';
+import './CoinChart.scss';
 
-export enum Timeframe{
-    Day = 'm1',
-    Week = 'm30',
-    Month = 'h1',
-    Year = 'd1',
-}
-  
-const CoinChart = () => {
+const CoinChart: React.FC = () => {
     const timeNow = Date.now();
+    const HOUR_MS = 3600000;
+    const HALF_DAY_MS = 43200000;
     const DAY_MS = 86400000;
-    const WEEK_MS = 604800000;
-    const MONTH_MS = 2592000000;
-    const YEAR_MS = 31536000000;
+
     const { id } = useParams();
+    const [selectedInterval, setSelectedInterval] =
+        useState<keyof typeof timeframeUNIXLabels>('m1');
 
-    const timeframeLabels: Record<Timeframe, string> = {
-        [Timeframe.Day]: 'minute',
-        [Timeframe.Week]: 'Hоur',
-        [Timeframe.Month]: 'Hour',
-        [Timeframe.Year]: 'Day',
-    };
-
-    const timeframeBTNLabels: Record<Timeframe, string> = {
-        [Timeframe.Day]: '1D',
-        [Timeframe.Week]: '7D',
-        [Timeframe.Month]: '1M',
-        [Timeframe.Year]: '1Y',
+    const timeframeBTNLabels = {
+        m1: '1H',
+        m5: '12H',
+        m15: '1D',
     };
 
     const timeframeUNIXLabels = {
-        [Timeframe.Day]: timeNow - DAY_MS,
-        [Timeframe.Week]: timeNow - WEEK_MS,
-        [Timeframe.Month]: timeNow - MONTH_MS,
-        [Timeframe.Year]: timeNow - YEAR_MS,
-    }
-
-
-    const [selectedInterval, setSelectedInterval] = useState<Timeframe>(Timeframe.Year);
+        m1: timeNow - HOUR_MS,
+        m5: timeNow - HALF_DAY_MS,
+        m15: timeNow - DAY_MS,
+    };
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['coinHisrory', selectedInterval], 
-        queryFn: () => getCoinHistory(id, selectedInterval, timeframeUNIXLabels[selectedInterval], timeNow),
+        queryKey: ['coinHisrory', selectedInterval],
+        queryFn: () =>
+            getCoinHistory(id, selectedInterval, timeframeUNIXLabels[selectedInterval], timeNow),
         keepPreviousData: true,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
     });
 
-    const timeframeValues = Object.values(Timeframe);
-
+    const timeframeValues = Object.keys(timeframeBTNLabels) as (keyof typeof timeframeUNIXLabels)[];
 
     return (
         <>
@@ -66,7 +55,7 @@ const CoinChart = () => {
             {isError && <Error />}
             {data && (
                 <>
-                    <div className={styles.CoinChart__select}>
+                    <div className="CoinChart__select">
                         <ButtonListForSelect
                             items={timeframeValues.map((value) => ({
                                 value,
@@ -74,34 +63,58 @@ const CoinChart = () => {
                             }))}
                             selectedValue={selectedInterval}
                             onSelect={(value) => setSelectedInterval(value)}
-                            ButtonListDescription='Interval: '
+                            ButtonListDescription="Interval: "
                         />
                     </div>
-                    
+
                     <ResponsiveContainer width="100%" height="100%">
-                        <LineChart
-                            data={data}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                        >
+                        <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis tickFormatter={(value) => (value % 70 === 0 ? value + 1 : '')} interval={1} />
-                            <YAxis tickFormatter={(value) => `$${value}`} />
+                            <XAxis
+                                style={{ fontSize: '12px' }}
+                                dataKey="time"
+                                tickFormatter={(time) => {
+                                    const date = new Date(time);
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const year = date.getFullYear();
+                                    const hours = String(date.getHours()).padStart(2, '0');
+                                    const minutes = String(date.getMinutes()).padStart(2, '0');
+                                    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
+                                    return formattedDate;
+                                }}
+                            />
+
+                            <YAxis
+                                style={{ fontSize: '12px' }}
+                                domain={['dataMin', 'dataMax']}
+                                tickFormatter={(value) => `$${formatNumber(value)}`}
+                            />
                             <Tooltip
-                                separator={": "}
-                                labelFormatter={(value) => `${timeframeLabels[selectedInterval]} ${value + 1}`}
+                                separator={': '}
+                                labelFormatter={(value) => {
+                                    const date = new Date(value);
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                                    const year = date.getFullYear();
+                                    const hours = String(date.getHours()).padStart(2, '0');
+                                    const minutes = String(date.getMinutes()).padStart(2, '0');
+                                    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
+                                    return formattedDate;
+                                }}
                                 formatter={(value: string) => [
                                     `$${formatNumber(parseFloat(value))}`,
-                                    "Price",
+                                    'Price',
                                 ]}
                             />
+
                             <Line type="monotone" dataKey="priceUsd" stroke="#e73919" dot={false} />
                         </LineChart>
                     </ResponsiveContainer>
                 </>
-                
             )}
         </>
-    )
-}
+    );
+};
 
-export default CoinChart
+export default CoinChart;

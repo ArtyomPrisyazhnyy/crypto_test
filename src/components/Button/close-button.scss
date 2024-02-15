@@ -1,0 +1,14 @@
+.close-button {
+    border: 1px solid #000;
+    border-radius: 7px;
+    background-color: #fff;
+    transition: 0.1s ease;
+    padding: 8px;
+
+    &:hover {
+        background-color: #b00216;
+        border-color: #b00216;
+        color: #fff;
+        cursor: pointer;
+    }
+}

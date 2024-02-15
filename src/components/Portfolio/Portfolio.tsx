@@ -1,109 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { getDataAndUpdateState } from '../../api/api';
 import { formatNumber } from '../../utils/formatNumber';
 import PortfolioModal from './PortfolioModal/PortfolioModal';
-import { Coin } from '../../types/Coin';
+import { ICoin } from '../../types/Coin';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
-
-import styles from './Portfolio.module.scss'
 import { getPortfolioFromLS } from '../../utils/localStorage';
+import Modal from '../Modal/Modal';
+import './Portfolio.scss';
 
 interface PortfolioCoin {
     id: string;
     coinquantity: number;
-    priceAtTimeOfPurchase: number[]
-};
-  
+    totalPriceAtTimeOfPurchase: number;
+}
 
-const Portfolio = () => {
+const Portfolio: React.FC = () => {
     const [portfolioModalVisible, setPortfolioModalVisible] = useState<boolean>(false);
 
-    const ids: string[] = [];
-    const  [portfolioTotalPrice, setPortfolioTotalPrice]= useState<number>(0);
-    const [percent, setPercent] = useState<string>('')
+    const [portfolioTotalPrice, setPortfolioTotalPrice] = useState<number>(0);
+    const [percent, setPercent] = useState<string>('');
     const [formattedDifference, setFormattedDifference] = useState<string>('');
+
+    const ids: string[] = [];
 
     let loadedPortfolio = getPortfolioFromLS();
 
     if (loadedPortfolio) {
-        loadedPortfolio.map((loadedCoinFromLS: any) => {
-            ids.push(loadedCoinFromLS.id)
-        })
-      
-        console.log("Загруженный портфель:", loadedPortfolio);
+        loadedPortfolio.forEach((loadedCoinFromLS: any) => {
+            if (!ids.includes(loadedCoinFromLS.id)) {
+                ids.push(loadedCoinFromLS.id);
+            }
+        });
     }
 
-
-    const {data: portfolioCoins, isLoading, isError} = useQuery({
+    const {
+        data: portfolioCoins,
+        isLoading,
+        isError,
+    } = useQuery({
         queryKey: ['coinData', ids],
         queryFn: () => getDataAndUpdateState(ids.join(',')),
         keepPreviousData: true,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: !!ids.length,
     });
 
-    
-
     useEffect(() => {
-        if (loadedPortfolio && portfolioCoins) {    
+        if (loadedPortfolio && portfolioCoins) {
             let totalPrice = 0;
+            let currentTotalPrice = 0;
 
-            portfolioCoins.forEach((portfolioCoin: Coin) => {
-                totalPrice += (+portfolioCoin.priceUsd * (loadedPortfolio.find((item: PortfolioCoin) => 
-                item.id === portfolioCoin.id)?.coinquantity || 0));
-            });
-            setPortfolioTotalPrice(totalPrice)
-    
-            const sumArray = (arr: number[]) => {
-                return arr.reduce((total, current) => total + current, 0);
-            };
-
-            let totalPricePurchase = 0;
             loadedPortfolio.forEach((coin: PortfolioCoin) => {
-                const coinTotalPrice = sumArray((coin.priceAtTimeOfPurchase ));
-                totalPricePurchase += coinTotalPrice;
+                const coinTotalPrice = coin.coinquantity * coin.totalPriceAtTimeOfPurchase;
+                const currentCoinPrice =
+                    portfolioCoins.find((portfolioCoin: ICoin) => portfolioCoin.id === coin.id)
+                        ?.priceUsd * coin.coinquantity;
+                totalPrice += coinTotalPrice;
+                currentTotalPrice += currentCoinPrice;
             });
-            console.log(totalPricePurchase)
-    
-            const priceDifference = totalPrice - totalPricePurchase;
-    
-            // Определение знака разницы
+
+            setPortfolioTotalPrice(totalPrice);
+
+            const priceDifference = totalPrice - currentTotalPrice;
             const sign = priceDifference >= 0 ? '+' : '-';
-    
-            // Получение абсолютной разницы
             const absoluteDifference = Math.abs(priceDifference);
-            setPercent(formatNumber((+absoluteDifference)/(+totalPrice)*100))
-            // Форматирование разницы
+            const percentageChange = (absoluteDifference / totalPrice) * 100;
+
+            setPercent(formatNumber(percentageChange));
             setFormattedDifference(`${sign}${formatNumber(absoluteDifference)}`);
         }
-    }, [loadedPortfolio, portfolioCoins, formattedDifference, portfolioTotalPrice])
+    }, [loadedPortfolio, portfolioCoins]);
 
-    
     return (
         <div>
-            {isLoading && <Loader />}
-            {isError && <Error />}
-            {portfolioCoins && (
+            {isLoading ? (
+                <Loader />
+            ) : isError ? (
+                <Error />
+            ) : (
                 <>
-                    <div className={styles.portfolio} onClick={() => (setPortfolioModalVisible(true))}>
-                        <div>
-                            {formatNumber(portfolioTotalPrice)} USD
-                            {formattedDifference}
-                            ({percent}%)
-                        </div>
-                    </div>
-                    <PortfolioModal
-                        totalPrice={formatNumber(portfolioTotalPrice)}
+                    <button className="portfolio" onClick={() => setPortfolioModalVisible(true)}>
+                        {loadedPortfolio?.length ? (
+                            <div>
+                                {formatNumber(portfolioTotalPrice)} USD
+                                {formattedDifference}({percent}%)
+                            </div>
+                        ) : (
+                            'Portfolio is empty'
+                        )}
+                    </button>
+                    <Modal
                         show={portfolioModalVisible}
-                        onHide={() => setPortfolioModalVisible(false)}
-                        portfolioCoins={portfolioCoins}
-                    />
+                        onHide={() => setPortfolioModalVisible(false)}>
+                        <PortfolioModal
+                            totalPrice={formatNumber(portfolioTotalPrice)}
+                            portfolioCoins={portfolioCoins}
+                        />
+                    </Modal>
                 </>
             )}
         </div>
-        
-    )
-}
+    );
+};
 
-export default Portfolio
+export default Portfolio;

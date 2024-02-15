@@ -1,0 +1,42 @@
+.modal__title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.modal__content__stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.portfolio__info {
+    display: flex;
+}
+.portfolio__desc {
+    margin-right: 10px;
+}
+.portfolio__quantity {
+    margin-right: 40px;
+}
+.portfolio__btn {
+    margin-right: 30px;
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 3px 6px;
+
+    background-color: #fff;
+    transition: 0.1s ease;
+    margin-bottom: 10px;
+    &:hover {
+        cursor: pointer;
+        background-color: #3861fb;
+        border-color: #3861fb;
+        color: #fff;
+    }
+}
+.portfolio__empty {
+    margin-bottom: 10px;
+    text-align: center;
+}

@@ -1,2 +1,2 @@
 export const HOME_ROUTE = '/';
-export const COIN_INFO = '/about/'
+export const COIN_INFO = '/about/';

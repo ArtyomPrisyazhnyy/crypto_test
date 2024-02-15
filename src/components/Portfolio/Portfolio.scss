@@ -1,13 +1,14 @@
-.portfolio{
-    background-color: #EFF2F5;
+.portfolio {
+    background-color: #eff2f5;
     display: inline-block;
     position: relative;
     padding: 6px 10px;
     margin: 0 20px;
     border-radius: 5px;
     overflow: hidden;
+    border: none;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
     }
 }

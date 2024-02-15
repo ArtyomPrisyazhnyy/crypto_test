@@ -1,37 +1,72 @@
 .table__container {
-    width: 100%; /* Установите желаемую ширину контейнера таблицы */
-    overflow-x: auto; /* Включить горизонтальную прокрутку */
+    width: 100%;
+    overflow-x: auto;
 }
-.table{
+
+.table {
     width: 100%;
     border-collapse: collapse;
-    
 }
-.thead{
+.thead {
     position: sticky;
     top: -1px;
     background-color: #fff;
     width: 100%;
 }
-.tr{
+.tr {
     border-bottom: 1px solid rgb(200, 200, 200);
 }
-.tr__link{
-    &:hover{
+.td {
+    padding-left: 14px;
+    padding-right: 10px;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    &__logo {
+        display: flex;
+        justify-content: center;
+    }
+}
+.tr__link {
+    &:hover {
         cursor: pointer;
     }
 }
-th, td{
+th,
+td {
     min-width: 78px;
     padding: 10px 0;
 }
-.coin__img__wrapper{
+th {
+    padding-left: 20px;
+}
+.name {
+    text-align: start;
+}
+.coin__img__wrapper {
     display: flex;
     align-items: center;
+
+    img {
+        margin-right: 12px;
+    }
 }
 .sticky_column {
     position: sticky;
-    left: 0; /* Фиксировать столбцы слева */
+    left: 0;
     background-color: #fff;
-    z-index: 1; /* Отобразить поверх других столбцов */
-  }
+    z-index: 1;
+}
+
+.hasShadow::after {
+    box-shadow: inset 10px 0 8px -8px #00000026;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: -1px;
+    width: 30px;
+    transform: translate(100%);
+    transition: box-shadow 0.3s;
+    content: '';
+    pointer-events: none;
+}

@@ -1,40 +1,25 @@
-import React, { useState } from 'react';
-import { Coin } from '../../types/Coin';
+import React from 'react';
+import { ICoin } from '../../types/Coin';
 import { useQuery } from 'react-query';
-import styles from './Header.module.scss'
-import { formatNumber } from '../../utils/formatNumber';
 import { getCoinForHeader } from '../../api/api';
-import Loader from '../Loader/Loader';
-import Error from '../Error/Error';
 import Portfolio from '../Portfolio/Portfolio';
+import TopCoin from '../TopCoin/TopCoin';
+import './Header.scss';
 
 const Header: React.FC = () => {
-
-    const { data: headerInfo, isError } = useQuery<Coin[] | undefined>({
-        queryKey: ['headerCoins'], 
+    const { data: headerInfo, isError } = useQuery<ICoin[] | undefined>({
+        queryKey: ['headerCoins'],
         queryFn: () => getCoinForHeader(),
         keepPreviousData: true,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
     });
 
-
     return (
-        <header className={styles.header}>
-            <div className={styles.topRankedCoinsInfo}>
-                {!headerInfo && !isError && <Loader />}
-                {isError && <Error />}
-                {headerInfo && Array.isArray(headerInfo) && headerInfo.map((coin) => (
-                    <div key={coin.rank} className={styles.topRankedCoin}>
-                        <div className={styles.topRankedCoin}>{coin.symbol}: </div>
-                        <div className={styles.topRankedCoin}>${formatNumber(parseFloat(coin.priceUsd))}</div>
-                        
-                    </div>
-                ))}
-            </div>
-
+        <header className="header">
+            <TopCoin headerInfo={headerInfo} isError={isError} />
             <Portfolio />
         </header>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

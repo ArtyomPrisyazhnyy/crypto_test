@@ -1,80 +1,78 @@
 import React, { useCallback } from 'react';
-
-import styles from './PortFolioModal.module.scss';
-import { Coin } from '../../../types/Coin';
-import CoinSVG from '../../../assets/img/coin.svg'
-import { formatNumber } from '../../../utils/formatNumber';
+import { ICoin } from '../../../types/Coin';
+import CoinSVG from '../../../assets/img/coin.svg';
 import { useQueryClient } from 'react-query';
 import { getPortfolioFromLS, removePortfoilioCoinfromLS } from '../../../utils/localStorage';
 import { LSPortfolioData } from '../../../types/LocalStorageData';
+import Button from '../../Button/Button';
+import './PortFolioModal.scss';
 
-interface PortfolioModalProps {
-    show: boolean;
-    onHide: () => void;
-    portfolioCoins: Coin[];
-    totalPrice: string
+export interface PortfolioModalProps {
+    portfolioCoins: ICoin[];
+    totalPrice: string;
 }
 
-
-const PortfolioModal: React.FC<PortfolioModalProps> = ({show, onHide, portfolioCoins, totalPrice}) => {
+const PortfolioModal: React.FC<PortfolioModalProps> = ({ portfolioCoins, totalPrice }) => {
     const queryClient = useQueryClient();
 
-    let loadedPortfolio = getPortfolioFromLS()
+    let loadedPortfolio = getPortfolioFromLS();
 
-    const removeCoin = useCallback((coinId: string) => {
-        removePortfoilioCoinfromLS(coinId);
-        queryClient.invalidateQueries('coinData');
-    }, [queryClient]);
+    const removeCoin = useCallback(
+        (coinId: string) => {
+            removePortfoilioCoinfromLS(coinId);
+            queryClient.invalidateQueries('coinData');
+        },
+        [queryClient],
+    );
+
+    const coinQuantityById: { [id: string]: number } = loadedPortfolio.reduce(
+        (accumulator: { [id: string]: number }, coin: LSPortfolioData) => {
+            if (accumulator[coin.id]) {
+                accumulator[coin.id] += coin.coinquantity;
+            } else {
+                accumulator[coin.id] = coin.coinquantity;
+            }
+            return accumulator;
+        },
+        {},
+    );
 
     return (
         <>
-            {show && 
-                <div className={styles.modal} 
-                    onClick={(e) => {
-                        if(e.target === e.currentTarget){
-                            onHide()
-                        }
-                    }}>
-                    <div className={styles.modal__content}>
-                        <div className={styles.modal__title}>
-                            Your coins
-                        </div>
-                        <div className={styles.modal__title}>
-                            Total price: {totalPrice}
-                        </div>
-                        {(loadedPortfolio.length && portfolioCoins) 
-                        ? 
-                            <>
-                            {portfolioCoins.map((portfolioCoin: any) => (
-                                <div className={styles.modal__content__stat}>
-                                    <div className={styles.portfolio__info}>
-                                        <img 
-                                            src={`https://assets.coincap.io/assets/icons/${portfolioCoin.symbol.toLowerCase()}@2x.png`} 
-                                            alt=""
-                                            height='24' 
-                                            width='24' 
-                                            onError={(e) => (e.currentTarget.src = CoinSVG)} 
-                                        />
-                                        <div className={styles.portfolio__desc}>{portfolioCoin.name}</div>
-                                       
-                                        <div className={styles.portfolio__desc}>
-                                            number of coins: {loadedPortfolio.find((item: LSPortfolioData) => 
-                                            item.id === portfolioCoin.id)?.coinquantity || 0}
-                                        </div>
-                                    </div>
-                                    
-                                    <button className={styles.portfolio__btn} onClick={() => removeCoin(portfolioCoin.id)}>remove</button>
-                                </div>
-                            ))}
-                            </>
-                        :  
-                        <div>portfolio is empty</div>}
-                            <button className={styles.portfolio__btn} onClick={onHide}>Close</button>
-                    </div>
-                </div>
-            }
-        </>
-    )
-}
+            <div className="modal__title">Your coins</div>
+            <div className="modal__title">Total price: {totalPrice}</div>
+            {loadedPortfolio.length && portfolioCoins ? (
+                <>
+                    {portfolioCoins.map((portfolioCoin: ICoin) => (
+                        <div key={portfolioCoin.id} className="modal__content__stat">
+                            <div className="portfolio__info">
+                                <img
+                                    src={`https://assets.coincap.io/assets/icons/${portfolioCoin.symbol.toLowerCase()}@2x.png`}
+                                    alt=""
+                                    height="24"
+                                    width="24"
+                                    onError={(e) => (e.currentTarget.src = CoinSVG)}
+                                />
+                                <div className="portfolio__desc">{portfolioCoin.name}</div>
 
-export default PortfolioModal
+                                <div className="portfolio__desc portfolio__quantity">
+                                    number of coins: {coinQuantityById[portfolioCoin.id] || 0}
+                                </div>
+                            </div>
+
+                            <Button
+                                variant="remove-button"
+                                onClick={() => removeCoin(portfolioCoin.id)}>
+                                remove
+                            </Button>
+                        </div>
+                    ))}
+                </>
+            ) : (
+                <div className="portfolio__empty">portfolio is empty</div>
+            )}
+        </>
+    );
+};
+
+export default PortfolioModal;
